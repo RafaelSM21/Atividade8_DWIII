@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connect from "./models/connection";
 import routes from "./routes/AnimalsRoutes";
+import path from "path";
 
 dotenv.config();
 
@@ -12,13 +13,13 @@ const app = express(); // Cria a instância do servidor Express
 app.use(express.json());
 
 // Servir arquivos estáticos da pasta "public"
-// app.use(express.static(path.join(__dirname, "../public"))); // Serve arquivos estáticos
+app.use(express.static(path.join(__dirname, "../public"))); // Serve arquivos estáticos
 
 // Conexão com o MongoDB
 connect();
 
 // Definir rotas do backend (animais)
-app.use(routes);
+app.use("/animais", routes);
 
 // Middleware para rotas desconhecidas (404)
 app.use("*", (_, res) => {

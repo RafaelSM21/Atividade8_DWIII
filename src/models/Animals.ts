@@ -24,6 +24,12 @@ const AnimalsSchema = new mongoose.Schema({
     maxlength: [60, "Nome do tutor deve ter no máximo 60 caracteres."],
     trim: true
   },
+  ContatoTutor: {
+    type: String,
+    default: "Não especificado",
+    maxlength: [60, "Contato do tutor deve ter no máximo 60 caracteres."],
+    trim: true
+  }
 });
 
 const Animals = mongoose.model("Animais", AnimalsSchema);

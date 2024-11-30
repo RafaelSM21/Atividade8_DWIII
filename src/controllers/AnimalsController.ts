@@ -4,9 +4,9 @@ import Animals from "../models/Animals";
 class AnimalsController {
     // Create
     public async create(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const { Nome, Especie, Idade, Tutor } = req.body;
+        const { Nome, Especie, Idade, Tutor, ContatoTutor } = req.body;
         try {
-            const newAnimal = new Animals({ Nome, Especie, Idade, Tutor });
+            const newAnimal = new Animals({ Nome, Especie, Idade, Tutor, ContatoTutor });
             const savedAnimal = await newAnimal.save();
             res.status(201).json(savedAnimal);
         } catch (error: any) {
@@ -25,24 +25,30 @@ class AnimalsController {
     }
 
     // Search by Name or Species
-    public async search(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const { query } = req.query; // Obtém o parâmetro de busca
+    public async search(req: Request, res: Response, next: NextFunction): Promise<any> {
+        const { query } = req.query;
         try {
+            if (!query || typeof query !== "string") {
+                return res.status(400).json({ error: "O parâmetro 'query' é obrigatório." });
+            }
+    
             const results = await Animals.find({
                 $or: [
-                    { Nome: { $regex: query, $options: "i" } }, // Busca parcial no nome
-                    { Especie: { $regex: query, $options: "i" } } // Busca parcial na espécie
+                    { Nome: { $regex: query, $options: "i" } },
+                    { Especie: { $regex: query, $options: "i" } }
                 ]
             });
-            res.json(results);
+    
+            return res.json(results);
         } catch (error: any) {
             next(error);
         }
     }
+    
 
     // Update
     public async update(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const { id, Nome, Especie, Idade, Tutor } = req.body;
+        const { id, Nome, Especie, Idade, Tutor, ContatoTutor } = req.body;
         try {
             const animal = await Animals.findById(id);
             if (!animal) {
@@ -53,6 +59,7 @@ class AnimalsController {
             animal.Especie = Especie;
             animal.Idade = Idade;
             animal.Tutor = Tutor;
+            animal.ContatoTutor = ContatoTutor
             const updatedAnimal = await animal.save();
             res.json(updatedAnimal);
         } catch (error: any) {
