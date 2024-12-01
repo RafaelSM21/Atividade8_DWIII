@@ -1,46 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro de Animais</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Animais</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Cadastro de Animais</h1>
-  </header>
+    <div class="container">
+        <header>
+            <h1>Gerenciador de Animais</h1>
+        </header>
 
-  <main>
-    <section id="form-section">
-      <h2>Adicionar Animal</h2>
-      <form id="animal-form">
-        <label for="Nome">Nome:</label>
-        <input type="text" id="Nome" name="Nome" required>
+        <section class="form-section">
+            <h2>Adicionar Novo Animal</h2>
+            <form id="addAnimalForm">
+                <input type="text" id="nome" placeholder="Nome" required>
+                <input type="text" id="especie" placeholder="Espécie" required>
+                <input type="number" id="idade" placeholder="Idade" required>
+                <input type="text" id="tutor" placeholder="Nome do Tutor" required>
+                <input type="text" id="contato" placeholder="Contato do Tutor (Opcional)">
+                <button type="submit" class="btn">Adicionar</button>
+            </form>
+        </section>
 
-        <label for="Especie">Espécie:</label>
-        <input type="text" id="Especie" name="Especie" required>
+        <section class="search-section">
+            <h2>Buscar Animais</h2>
+            <div class="search-container">
+                <input type="text" id="searchQuery" placeholder="Buscar por Nome ou Espécie">
+                <button id="searchButton" class="btn">Buscar</button>
+                <button id="resetButton" class="btn">Redefinir</button>
+            </div>
+        </section>
 
-        <label for="Idade">Idade:</label>
-        <input type="number" id="Idade" name="Idade" required>
+        <section class="list-section">
+            <h2>Lista de Animais</h2>
+            <ul id="animalsList"></ul>
+        </section>
+    </div>
 
-        <label for="Tutor">Tutor:</label>
-        <input type="text" id="Tutor" name="Tutor" required>
-
-        <label for="ContatoTutor">Contato do Tutor:</label>
-        <input type="text" id="ContatoTutor" name="ContatoTutor" required>
-
-        <button type="submit">Cadastrar</button>
-      </form>
-    </section>
-
-    <section id="list-section">
-      <h2>Lista de Animais</h2>
-      <input type="text" id="search" placeholder="Buscar por nome ou espécie...">
-      <ul id="animal-list"></ul>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
